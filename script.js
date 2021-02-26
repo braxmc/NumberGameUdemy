@@ -1,10 +1,19 @@
 'use strict';
 
-// calculates random number 
-let secretNumber = Math.trunc(Math.random() * 20) + 1;
-
+let secretNumber = calcNum()
 let score = 20;
 let highscore = 0;
+
+// generates display message
+function displayMessage(message) {
+  document.querySelector('.message').textContent = message;
+}
+
+// calculates secretNumber
+function calcNum() {
+  let num = Math.trunc(Math.random() * 20) + 1;
+  return num
+}
 
 // checks to see if input matches number
 document.querySelector('.check').addEventListener('click', function() {
@@ -12,11 +21,11 @@ document.querySelector('.check').addEventListener('click', function() {
 
   // if there is no guess
   if(!guess) {
-    document.querySelector('.message').textContent = 'No number!';
+    displayMessage('No number!')
     
   // if they guess correct
   } else if(guess === secretNumber) {
-    document.querySelector('.message').textContent = 'Correct number!';
+    displayMessage('Correct number!')
     document.querySelector('.number').textContent = secretNumber;
 
   // css changes upon win
@@ -32,7 +41,7 @@ document.querySelector('.check').addEventListener('click', function() {
   } else if(guess !== secretNumber) {
     //determines if score is above 0
     if(score > 0) {
-      document.querySelector('.message').textContent = guess > secretNumber ? 'Number too high!' : 'Number too low!';
+       displayMessage(guess > secretNumber ? 'Number too high!' : 'Number too low!');
       score--;
       document.querySelector('.score').textContent = score;
     } else {
@@ -47,7 +56,7 @@ document.querySelector('.again').addEventListener('click', function() {
   score = 20;
   document.querySelector('.score').textContent = score;
   // reset random number
-  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  secretNumber = calcNum();
   // reset css
   document.querySelector('body').style.backgroundColor = '#222';
   document.querySelector('.number').style.width = '15rem';
